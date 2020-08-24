@@ -19,11 +19,16 @@ const createWindow = () => {
 };
 
 ipcMain.on('setSerial', (event, data) => {
-    if(data.path && fs.existsSync(data.path)){
-        serialPort = new SerialPort(data.path);
-        event.returnValue = data.path;
-    }else{
-        event.returnValue = "Invalid path";
+    if (data.path && fs.existsSync(data.path)) {
+        try {
+            fs.accessSync(data.path, fs.constants.R_OK);
+            serialPort = new SerialPort(data.path);
+            event.returnValue = data.path;
+        }catch{
+            event.returnValue = `${data.path} exists, but you are not allowed to read from it.`
+        }
+    } else {
+        event.returnValue = 'Invalid path';
     }
 });
 
