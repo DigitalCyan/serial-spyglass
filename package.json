@@ -1,0 +1,33 @@
+{
+  "name": "serial-spyglass",
+  "version": "1.0.0",
+  "description": "A serial port spyglass",
+  "main": "index.js",
+  "dependencies": {
+    "electron": "^9.2.1",
+    "serialport": "^9.0.1"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^2.0.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "rebuild": "electron-rebuild ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DigitalCyan/serial-spyglass.git"
+  },
+  "keywords": [
+    "JS",
+    "Node",
+    "Serial",
+    "Tool"
+  ],
+  "author": "DigitalCyan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DigitalCyan/serial-spyglass/issues"
+  },
+  "homepage": "https://github.com/DigitalCyan/serial-spyglass#readme"
+}
