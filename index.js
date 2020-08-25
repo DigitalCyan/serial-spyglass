@@ -14,6 +14,7 @@ const createWindow = () => {
         },
     });
     mainWin.setMenu(null);
+    mainWin.toggleDevTools();
     mainWin.maximize();
     mainWin.loadFile('./static/index.html');
 };
@@ -21,7 +22,7 @@ const createWindow = () => {
 // IPC listeners
 
 ipcMain.on('setSerial', (event, data) => {
-    if (data.path && fs.existsSync(data.path)) {
+    if (data.path && data.baud && fs.existsSync(data.path)) {
         try {
             fs.accessSync(data.path, fs.constants.R_OK);
             serialPort = new SerialPort(data.path);
@@ -33,7 +34,7 @@ ipcMain.on('setSerial', (event, data) => {
             event.returnValue = `${data.path} exists, but you are not allowed to read from it.`;
         }
     } else {
-        event.returnValue = 'Invalid path';
+        event.returnValue = 'Invalid path or baud';
     }
 });
 

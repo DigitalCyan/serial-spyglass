@@ -3,6 +3,7 @@ const { ipcRenderer } = require('electron');
 
 // Queries
 const portInput = document.querySelector('.path-input');
+const baudInput = document.querySelector('.baud-input');
 const portButt = document.querySelector('.path-button');
 const pathP = document.querySelector('.path-p');
 const monitorDiv = document.querySelector('.monitor');
@@ -10,7 +11,7 @@ const devicesDiv = document.querySelector('.devices');
 
 // Functionallity
 const setPath = (path) => {
-    const response = ipcRenderer.sendSync('setSerial', { path: path });
+    const response = ipcRenderer.sendSync('setSerial', { path: path , baud: baudInput.value});
     if (response) {
         pathP.innerHTML = response;
     }
@@ -26,6 +27,7 @@ const log = (msg) => {
     const p = document.createElement('p');
     p.innerHTML = msg;
     monitorDiv.appendChild(p);
+    monitorDiv.scrollTop = monitorDiv.scrollHeight;
 };
 
 ipcRenderer.on('log', (event, data) => {
