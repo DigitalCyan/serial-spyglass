@@ -8,6 +8,8 @@ Serial Spyglass is a tool for reading serial data from devices. Simply run the p
 
 ## Q&A
 
+~~~
 Q: Should this have been a native app?
 
 A: Yes
+~~~
