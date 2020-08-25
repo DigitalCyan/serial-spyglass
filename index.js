@@ -3,9 +3,10 @@ const SerialPort = require('serialport');
 const fs = require('fs');
 
 let serialPort = null;
+let mainWin = null;
 
 const createWindow = () => {
-    const mainWin = new BrowserWindow({
+    mainWin = new BrowserWindow({
         width: 600,
         height: 500,
         webPreferences: {
@@ -14,7 +15,6 @@ const createWindow = () => {
     });
     mainWin.setMenu(null);
     mainWin.maximize();
-    mainWin.toggleDevTools();
     mainWin.loadFile('./static/index.html');
 };
 
@@ -23,13 +23,20 @@ ipcMain.on('setSerial', (event, data) => {
         try {
             fs.accessSync(data.path, fs.constants.R_OK);
             serialPort = new SerialPort(data.path);
-            event.returnValue = data.path;
-        }catch{
-            event.returnValue = `${data.path} exists, but you are not allowed to read from it.`
+            serialPort.on('data', (data) => {
+                mainWin.webContents.send('log', { msg: data.toString() });
+            });
+            event.returnValue = 'Reading the serial...';
+        } catch {
+            event.returnValue = `${data.path} exists, but you are not allowed to read from it.`;
         }
     } else {
         event.returnValue = 'Invalid path';
     }
+});
+
+ipcMain.on('getDevices', (event) => {
+    event.returnValue = fs.readdirSync('/dev');
 });
 
 app.on('ready', createWindow);

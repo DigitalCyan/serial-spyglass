@@ -22,21 +22,43 @@ body {
 }
 
 body div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 10px;
   width: 100%;
   margin: 5px;
   background-color: #222;
+  overflow-y: scroll;
 }
 
-button, input {
+button,
+input {
   background-color: #151515;
   color: #fff;
   border: none;
+  margin: 1px;
 }
 
 .monitor {
   -webkit-box-flex: 200%;
       -ms-flex: 200%;
           flex: 200%;
+}
+
+.monitor p {
+  margin: 1px;
+}
+
+.devices p {
+  margin: 1px;
+}
+
+.devices li {
+  cursor: pointer;
 }
 /*# sourceMappingURL=index.css.map */
