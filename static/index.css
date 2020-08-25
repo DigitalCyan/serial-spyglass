@@ -58,7 +58,25 @@ input {
   margin: 1px;
 }
 
-.devices li {
+.devices ul {
+  list-style: none;
+}
+
+.devices ul li {
+  color: #aaa;
   cursor: pointer;
+}
+
+.devices ul li:hover {
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0);
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #181818;
 }
 /*# sourceMappingURL=index.css.map */

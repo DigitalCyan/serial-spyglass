@@ -43,7 +43,22 @@ input {
     p {
         margin: 1px;
     }
-    li{
-        cursor: pointer;
+    ul {
+        list-style: none;
+        li {
+            color: #aaa;
+            cursor: pointer;
+        }
+        li:hover {
+            color: #fff;
+        }
     }
+}
+
+::-webkit-scrollbar {     
+    background-color: rgba(0,0,0,0);
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background:  #181818;
 }
