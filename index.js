@@ -1,3 +1,5 @@
+// MAIN PROCESS
+
 const { app, ipcMain, BrowserWindow } = require('electron');
 const SerialPort = require('serialport');
 const fs = require('fs');
@@ -25,13 +27,21 @@ ipcMain.on('setSerial', (event, data) => {
     if (data.path && data.baud && fs.existsSync(data.path)) {
         try {
             fs.accessSync(data.path, fs.constants.R_OK);
-            serialPort = new SerialPort(data.path);
+            if (serialPort) {
+                serialPort.close();
+                serialPort = null;
+            }
+            serialPort = new SerialPort(data.path, {
+                baudRate: data.baud,
+                autoOpen: false,
+            });
             serialPort.on('data', (data) => {
                 mainWin.webContents.send('log', { msg: data.toString() });
             });
+            serialPort.open();
             event.returnValue = 'Reading the serial...';
-        } catch {
-            event.returnValue = `${data.path} exists, but you are not allowed to read from it.`;
+        } catch (err) {
+            event.returnValue = `${data.path} exists, but you are not allowed to read from it. ${err}`;
         }
     } else {
         event.returnValue = 'Invalid path or baud';

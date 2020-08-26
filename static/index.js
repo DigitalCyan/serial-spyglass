@@ -1,3 +1,5 @@
+// RENDER PROCESS
+
 // Imports
 const { ipcRenderer } = require('electron');
 
@@ -6,12 +8,13 @@ const portInput = document.querySelector('.path-input');
 const baudInput = document.querySelector('.baud-input');
 const portButt = document.querySelector('.path-button');
 const pathP = document.querySelector('.path-p');
-const monitorDiv = document.querySelector('.monitor');
+const monitorOutputDiv = document.querySelector('.monitor-output');
+const autoscrolInput = document.querySelector('.monitor-autoscroll-input')
 const devicesDiv = document.querySelector('.devices');
 
 // Functionallity
 const setPath = (path) => {
-    const response = ipcRenderer.sendSync('setSerial', { path: path , baud: baudInput.value});
+    const response = ipcRenderer.sendSync('setSerial', { path: path , baud: parseInt(baudInput.value)});
     if (response) {
         pathP.innerHTML = response;
     }
@@ -26,8 +29,10 @@ portButt.addEventListener('click', () => {
 const log = (msg) => {
     const p = document.createElement('p');
     p.innerHTML = msg;
-    monitorDiv.appendChild(p);
-    monitorDiv.scrollTop = monitorDiv.scrollHeight;
+    monitorOutputDiv.appendChild(p);
+    if(autoscrolInput.checked){
+    monitorOutputDiv.scrollTop = monitorOutputDiv.scrollHeight;
+    }
 };
 
 ipcRenderer.on('log', (event, data) => {

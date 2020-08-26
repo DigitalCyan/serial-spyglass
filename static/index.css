@@ -22,6 +22,7 @@ body {
 }
 
 body div {
+  padding: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -32,8 +33,8 @@ body div {
   padding: 10px;
   width: 100%;
   margin: 5px;
-  background-color: #222;
   overflow-y: scroll;
+  border-radius: 5px;
 }
 
 button,
@@ -44,14 +45,54 @@ input {
   margin: 1px;
 }
 
+input:focus {
+  outline: none;
+}
+
+.settings {
+  background-color: #222;
+}
+
+.settings input::-webkit-outer-spin-button,
+.settings input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .monitor {
   -webkit-box-flex: 200%;
       -ms-flex: 200%;
           flex: 200%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.monitor p {
-  margin: 1px;
+.monitor .monitor-output {
+  height: 100%;
+  padding: 0;
+  background-color: #222;
+}
+
+.monitor .monitor-output p {
+  margin: 3px;
+}
+
+.monitor .monitor-prefrences {
+  padding: 0;
+  width: auto;
+}
+
+.monitor .monitor-prefrences input {
+  display: inline;
+}
+
+.devices {
+  background-color: #222;
 }
 
 .devices p {
@@ -60,11 +101,17 @@ input {
 
 .devices ul {
   list-style: none;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .devices ul li {
   color: #aaa;
   cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .devices ul li:hover {
@@ -78,5 +125,6 @@ input {
 
 ::-webkit-scrollbar-thumb {
   background: #181818;
+  border-radius: 5px;
 }
 /*# sourceMappingURL=index.css.map */
