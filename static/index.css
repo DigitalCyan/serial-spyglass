@@ -43,9 +43,14 @@ input {
   color: #fff;
   border: none;
   margin: 1px;
+  border-radius: 5px;
 }
 
-input:focus {
+button {
+  cursor: pointer;
+}
+
+button:focus, input:focus {
   outline: none;
 }
 
@@ -70,6 +75,28 @@ input:focus {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.monitor ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.monitor ul li:last-child {
+  margin-right: 5px;
+  margin-left: auto;
+}
+
+.monitor ul img {
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
 }
 
 .monitor .monitor-output {

@@ -3,20 +3,21 @@
 const { app, ipcMain, BrowserWindow } = require('electron');
 const SerialPort = require('serialport');
 const fs = require('fs');
+const open = require('open');
 
 let serialPort = null;
 let mainWin = null;
 
 const createWindow = () => {
     mainWin = new BrowserWindow({
-        width: 600,
-        height: 500,
+        minWidth: 900,
+        minHeight: 600,
         webPreferences: {
             nodeIntegration: true,
         },
     });
     mainWin.setMenu(null);
-    mainWin.toggleDevTools();
+    // mainWin.toggleDevTools(); // IN CASE OF A DISASTER AND A SURGE OF WILL TO FIX IT, UNCOMMENT THIS LINE
     mainWin.maximize();
     mainWin.loadFile('./static/index.html');
 };
@@ -41,7 +42,7 @@ ipcMain.on('setSerial', (event, data) => {
             serialPort.open();
             event.returnValue = 'Reading the serial...';
         } catch (err) {
-            event.returnValue = `${data.path} exists, but you are not allowed to read from it. ${err}`;
+            event.returnValue = `${data.path} exists, but you are not allowed to read from it.`;
         }
     } else {
         event.returnValue = 'Invalid path or baud';
@@ -51,5 +52,11 @@ ipcMain.on('setSerial', (event, data) => {
 ipcMain.on('getDevices', (event) => {
     event.returnValue = fs.readdirSync('/dev');
 });
+
+ipcMain.on('openGitHub', () => {
+    open('https://github.com/DigitalCyan/serial-spyglass');
+});
+
+// Run the ignition function
 
 app.on('ready', createWindow);
