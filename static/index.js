@@ -1,5 +1,3 @@
-// RENDER PROCESS
-
 // Imports
 const { ipcRenderer } = require('electron');
 
@@ -9,9 +7,10 @@ const baudInput = document.querySelector('.baud-input');
 const portButt = document.querySelector('.path-button');
 const pathP = document.querySelector('.path-p');
 const monitorOutputDiv = document.querySelector('.monitor-output');
-const autoscrolInput = document.querySelector('.monitor-autoscroll-input');
+const autoscrollInput = document.querySelector('.monitor-autoscroll-input');
 const devicesDiv = document.querySelector('.devices');
 const gitHubImg = document.querySelector('.github-img');
+const refreshDevicesButton = document.querySelector('.refresh-devices-button');
 
 // Functionallity
 const setPath = (path) => {
@@ -24,21 +23,44 @@ const setPath = (path) => {
     }
 };
 
+const getDevices = () => {
+    while (devicesDiv.children[1].firstChild){
+        devicesDiv.children[1].removeChild(devicesDiv.children[1].firstChild);
+    }
+    const addDevice = (dev) => {
+        const li = document.createElement('li');
+        li.innerHTML = dev;
+        li.onclick = () => {
+            setPath(`/dev/${dev}`);
+        };
+        devicesDiv.children[1].appendChild(li);
+    };
+
+    const devices = ipcRenderer.sendSync('getDevices');
+    devices.forEach((dev) => {
+        addDevice(dev);
+    });
+};
+
+// Event listeners
 portButt.addEventListener('click', () => {
     setPath(portInput.value);
 });
 
 gitHubImg.addEventListener('click', () => {
     ipcRenderer.send('openGitHub');
+});
+
+refreshDevicesButton.addEventListener('click', () => {
+    getDevices();
 })
 
 // Logging
-
 const log = (msg) => {
     const p = document.createElement('p');
     p.innerHTML = msg;
     monitorOutputDiv.appendChild(p);
-    if (autoscrolInput.checked) {
+    if (autoscrollInput.checked) {
         monitorOutputDiv.scrollTop = monitorOutputDiv.scrollHeight;
     }
 };
@@ -47,18 +69,4 @@ ipcRenderer.on('log', (event, data) => {
     log(data.msg);
 });
 
-// Get device list
-
-const addDevice = (dev) => {
-    const li = document.createElement('li');
-    li.innerHTML = dev;
-    li.onclick = () => {
-        setPath(`/dev/${dev}`);
-    };
-    devicesDiv.children[1].appendChild(li);
-};
-
-const devices = ipcRenderer.sendSync('getDevices');
-devices.forEach((dev) => {
-    addDevice(dev);
-});
+getDevices();
