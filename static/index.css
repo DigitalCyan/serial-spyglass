@@ -111,12 +111,23 @@ input:focus {
 }
 
 .monitor .monitor-prefrences {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   padding: 0;
   width: auto;
 }
 
 .monitor .monitor-prefrences input {
   display: inline;
+}
+
+.monitor .monitor-prefrences button:last-child {
+  margin-left: auto;
 }
 
 .devices {

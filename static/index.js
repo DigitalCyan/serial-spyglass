@@ -7,6 +7,7 @@ const baudInput = document.querySelector('.baud-input');
 const portButt = document.querySelector('.path-button');
 const pathP = document.querySelector('.path-p');
 const monitorOutputDiv = document.querySelector('.monitor-output');
+const monitorClearButton = document.querySelector('.monitor-clear-button');
 const autoscrollInput = document.querySelector('.monitor-autoscroll-input');
 const devicesDiv = document.querySelector('.devices');
 const filterInput = document.querySelector('.devices-filter-input');
@@ -45,6 +46,12 @@ const getDevices = () => {
     });
 };
 
+const clearMonitor = () => {
+    while(monitorOutputDiv.firstChild){
+        monitorOutputDiv.removeChild(monitorOutputDiv.firstChild);
+    }
+}
+
 // Event listeners
 portButt.addEventListener('click', () => {
     setPath(portInput.value);
@@ -57,6 +64,10 @@ gitHubImg.addEventListener('click', () => {
 refreshDevicesButton.addEventListener('click', () => {
     getDevices();
 });
+
+monitorClearButton.addEventListener('click', () => {
+    clearMonitor();
+})
 
 // Logging
 const log = (msg) => {

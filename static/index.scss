@@ -83,11 +83,16 @@ input:focus {
         }
     }
     .monitor-prefrences {
+        display: flex;
+        flex-direction: row;
         input {
             display: inline;
         }
         padding: 0;
         width: auto;
+        button:last-child {
+            margin-left: auto;
+        }
     }
 }
 

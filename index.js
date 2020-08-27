@@ -17,13 +17,12 @@ const createWindow = () => {
         },
     });
     mainWin.setMenu(null);
-    //mainWin.toggleDevTools(); // IN CASE OF A DISASTER AND A SURGE OF WILL TO FIX IT, UNCOMMENT THIS LINE
+    // mainWin.toggleDevTools(); // IN CASE OF A DISASTER AND A SURGE OF WILL TO FIX IT, UNCOMMENT THIS LINE
     mainWin.maximize();
     mainWin.loadFile('./static/index.html');
 };
 
 // IPC listeners
-
 ipcMain.on('setSerial', (event, data) => {
     if (data.path && data.baud && fs.existsSync(data.path)) {
         try {
@@ -58,5 +57,4 @@ ipcMain.on('openGitHub', () => {
 });
 
 // Run the ignition function
-
 app.on('ready', createWindow);
