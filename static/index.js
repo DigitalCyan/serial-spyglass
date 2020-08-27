@@ -9,6 +9,7 @@ const pathP = document.querySelector('.path-p');
 const monitorOutputDiv = document.querySelector('.monitor-output');
 const autoscrollInput = document.querySelector('.monitor-autoscroll-input');
 const devicesDiv = document.querySelector('.devices');
+const filterInput = document.querySelector('.devices-filter-input');
 const gitHubImg = document.querySelector('.github-img');
 const refreshDevicesButton = document.querySelector('.refresh-devices-button');
 
@@ -24,7 +25,7 @@ const setPath = (path) => {
 };
 
 const getDevices = () => {
-    while (devicesDiv.children[1].firstChild){
+    while (devicesDiv.children[1].firstChild) {
         devicesDiv.children[1].removeChild(devicesDiv.children[1].firstChild);
     }
     const addDevice = (dev) => {
@@ -38,7 +39,9 @@ const getDevices = () => {
 
     const devices = ipcRenderer.sendSync('getDevices');
     devices.forEach((dev) => {
-        addDevice(dev);
+        if (dev.search(filterInput.value) != -1) {
+            addDevice(dev);
+        }
     });
 };
 
@@ -53,7 +56,7 @@ gitHubImg.addEventListener('click', () => {
 
 refreshDevicesButton.addEventListener('click', () => {
     getDevices();
-})
+});
 
 // Logging
 const log = (msg) => {
