@@ -5,9 +5,9 @@
 Serial Spyglass is a Linux tool for reading serial data from devices. Simply run the program and from the right side select the device of which you wish to see the serial input, if you can't find it, write it's name in the filter field and refresh. The window in the middle serves as the monitor. If you wish to enter the location of the device yourself, you can do so from the settings window to the left. The very same window also allows you to set your own baudrate.
 
 ## Suported platforms
-Linux only
+**Linux only BUT...**
 
-Serial Spyglass runs on [Electron](https://github.com/electron/electron) which basically means it can be ported to run on Windows, macOS and Linux by fiddling with the source a bit and using [electron-packager](https://www.npmjs.com/package/electron-packager/v/15.1.0).
+Serial Spyglass runs on [Electron](https://github.com/electron/electron) which basically means it can be ported to run on Windows, macOS and Linux by fiddling with the source a bit and then packaged using [electron-packager](https://www.npmjs.com/package/electron-packager/v/15.1.0).
 
 ## Getting ready to fiddle
 Use `cd` to enter the cloned repo's folder, then run: 
